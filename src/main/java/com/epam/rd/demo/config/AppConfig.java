@@ -9,6 +9,8 @@ import com.epam.rd.demo.service.TodoListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Lazy;
 
 import javax.annotation.PostConstruct;
 
@@ -20,6 +22,8 @@ public class AppConfig {
     private TodoListRepository todoListRepository;
 
     @Bean(initMethod = "init")
+    @DependsOn("todoListRepository")
+    @Lazy
     public ITodoListService iTodoListService() {
         System.out.println("creating a bean");
         return new TodoListService(todoListRepository);
